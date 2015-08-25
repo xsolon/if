@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using xSolon.Events;
-using xSolon.Instructions.DTO;
+using xSolon.Logs.Destinations;
 
 namespace xSolon.Logs
 {

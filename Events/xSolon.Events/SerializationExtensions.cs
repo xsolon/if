@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Script.Serialization;
@@ -131,7 +132,7 @@ namespace xSolon.Events
         /// <param name="type">Type to desearialize to.</param>
         /// <param name="rawValue">string represenation of the object</param>
         /// <returns>Instance of the object.</returns>
-        public static object Desearilize(Type type, string rawValue)
+        public static object Deserialize(Type type, string rawValue)
         {
             var serializer = new XmlSerializer(type);
 
@@ -140,7 +141,7 @@ namespace xSolon.Events
             return serializer.Deserialize(reader);
         }
 
-        public static T Desearilize<T>(this string rawValue, Type[] additionalTypes) where T : class , new()
+        public static T Deserialize<T>(this string rawValue, Type[] additionalTypes) where T : class , new()
         {
             if (additionalTypes == null)
             {
@@ -154,7 +155,7 @@ namespace xSolon.Events
             return (T)serializer.Deserialize(reader);
         }
 
-        public static object Desearilize<T>(this Stream stream, Type[] additionalTypes) where T : class , new()
+        public static object Deserialize<T>(this Stream stream, Type[] additionalTypes) where T : class , new()
         {
             if (additionalTypes == null)
             {
@@ -212,22 +213,22 @@ namespace xSolon.Events
             return DeserializeFromFile(obj, obj.GetType(), fileName, null) as T;
         }
 
-        public static T DeserializeString<T>(string rawValue) where T : class , new()
+        public static T DeserializeString<T>(this string rawValue) where T : class , new()
         {
-            return Desearilize(typeof(T), rawValue) as T;
+            return Deserialize(typeof(T), rawValue) as T;
         }
 
         public static String DownloadString(this WebClient webClient, String address, Encoding encoding)
         {
             byte[] buffer = webClient.DownloadData(address);
- 
+
             byte[] bom = encoding.GetPreamble();
- 
+
             if ((0 == bom.Length) || (buffer.Length < bom.Length))
             {
                 return encoding.GetString(buffer);
             }
- 
+
             for (int i = 0; i < bom.Length; i++)
             {
                 if (buffer[i] != bom[i])
@@ -235,7 +236,7 @@ namespace xSolon.Events
                     return encoding.GetString(buffer);
                 }
             }
- 
+
             return encoding.GetString(buffer, bom.Length, buffer.Length - bom.Length);
         }
 
@@ -328,6 +329,32 @@ namespace xSolon.Events
             }
         }
 
+        public static List<Type> GetKnownTypesOfType(Type type){
+
+            var arr = CleanKnownTypes().ToList();
+
+            foreach (KnownTypeAttribute item in type.GetCustomAttributes(typeof(KnownTypeAttribute), false))
+            {
+                arr.Add(item.Type);
+
+            }
+
+            return arr;
+        }
+        private static List<Type> GetKnownTypesOfObject(object obj){
+
+            var arr = CleanKnownTypes().ToList();
+
+            if (obj != null)
+            foreach (KnownTypeAttribute item in obj.GetType().GetCustomAttributes(typeof(KnownTypeAttribute), false))
+            {
+                arr.Add(item.Type);
+
+            }
+
+            return arr;
+        }
+
         /// <summary>
         /// Serialize object using XmlSerializer
         /// </summary>
@@ -335,7 +362,10 @@ namespace xSolon.Events
         /// <returns>String representation of passed object</returns>
         public static string Serialize(this object obj)
         {
-            var x = new System.Xml.Serialization.XmlSerializer(obj.GetType(), CleanKnownTypes().ToArray());
+
+            var arr = GetKnownTypesOfObject(obj);
+
+            var x = new System.Xml.Serialization.XmlSerializer(obj.GetType(), arr.ToArray());
 
             string output = string.Empty;
 
@@ -355,13 +385,15 @@ namespace xSolon.Events
         {
             System.Xml.Serialization.XmlSerializer x = null;
 
-            if (knownTypes == null)
+            var arr = GetKnownTypesOfObject(obj);
+
+            //if (knownTypes == null)
+            //{
+            //    x = new System.Xml.Serialization.XmlSerializer(obj.GetType());
+            //}
+            //else
             {
-                x = new System.Xml.Serialization.XmlSerializer(obj.GetType());
-            }
-            else
-            {
-                var arrs = new List<Type>(knownTypes);
+                //var arrs = new List<Type>(knownTypes);
 
                 //if (obj is XSolonDictionary)
                 {
@@ -376,7 +408,7 @@ namespace xSolon.Events
                     //});
                 }
 
-                x = new System.Xml.Serialization.XmlSerializer(obj.GetType(), arrs.ToArray());
+                x = new System.Xml.Serialization.XmlSerializer(obj.GetType(), arr.ToArray());
             }
 
             string output = string.Empty;

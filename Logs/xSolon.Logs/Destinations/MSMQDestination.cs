@@ -7,7 +7,7 @@ using System.Linq;
 using System.Messaging;
 using xSolon.Events;
 
-namespace xSolon.Instructions.DTO.Destinations
+namespace xSolon.Logs.Destinations
 {
     public class MSMQDestination : BaseLogDestination, IDisposable
     {

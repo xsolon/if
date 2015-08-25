@@ -11,7 +11,7 @@ using System.Net.Mail;
 
 #endregion
 
-namespace xSolon.Instructions.DTO.Destinations
+namespace xSolon.Logs.Destinations
 {
     public class EmailDestination : BaseLogDestination
     {

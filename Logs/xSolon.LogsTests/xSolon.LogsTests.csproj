@@ -50,7 +50,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Destinations\RemoteDestinationTests.cs" />
     <Compile Include="Destinations\TraceDestinationTests.cs" />
+    <Compile Include="LoggerClassTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

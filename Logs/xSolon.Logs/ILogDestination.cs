@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using xSolon.Events;
 
-namespace xSolon.Instructions.DTO
+namespace xSolon.Logs
 {
     public interface ILogDestination
     {

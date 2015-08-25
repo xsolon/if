@@ -15,7 +15,7 @@ using xSolon.Events;
 
 #endregion
 
-namespace xSolon.Instructions.DTO
+namespace xSolon.Logs.Destinations
 {
     /// <summary>
     ///     Destination that submits a POST request of serialized events to a service url endpoint

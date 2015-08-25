@@ -12,7 +12,7 @@ using xSolon.Events;
 
 #endregion
 
-namespace xSolon.Instructions.DTO.Logs
+namespace xSolon.Logs.Destinations
 {
     public class TraceDestination : BaseLogDestination
     {

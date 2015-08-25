@@ -13,16 +13,19 @@ using xSolon.Logs;
 
 #endregion
 
-namespace xSolon.Instructions.DTO
+namespace xSolon.Logs.Destinations
 {
     public abstract class BaseLogDestination : ILogDestination, ICloneable
     {
         public bool AutoCommit = false;
         public int Level = (int)EventSeverity.Verbose;
+
+        [XmlIgnore]
         public List<EventEntry> LogList = new List<EventEntry>();
 
         [XmlIgnore]
         public LoggerClass Logger = null;
+
         public abstract object Clone();
 
         /// <summary>

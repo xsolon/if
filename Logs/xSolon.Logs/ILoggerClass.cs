@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using xSolon.Events;
+using xSolon.Logs.Destinations;
 
-namespace xSolon.Instructions.DTO
+namespace xSolon.Logs
 {
     public interface ILoggerClass : ILog
     {

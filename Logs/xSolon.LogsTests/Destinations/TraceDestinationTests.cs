@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using xSolon.Events;
 using xSolon.Logs;
+using xSolon.Logs.Destinations;
 
 namespace xSolon.Instructions.DTO.Logs.Tests
 {
