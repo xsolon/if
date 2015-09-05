@@ -54,6 +54,7 @@
     <Compile Include="C:\sc\sn\SerializationExtensions.partial.cs">
       <Link>SerializationExtensions.partial.cs</Link>
     </Compile>
+    <Compile Include="DataTableExtensions.cs" />
     <Compile Include="Dto\EventEntry.cs" />
     <Compile Include="Dto\LoggedClass.cs" />
     <Compile Include="EventSeverity.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="ILog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dto\XSolonDictionary.cs" />
+    <Compile Include="ReflectionExtensions.cs" />
     <Compile Include="SerializationExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

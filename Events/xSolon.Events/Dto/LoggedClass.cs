@@ -31,19 +31,17 @@ namespace xSolon.Events
         /// Default constructor
         /// </summary>
         public LoggedClass()
-
         {
             InstanceId = String.Format("{0}_{1}", GetType().Name, rnd.Next(99));
         }
 
         public LoggedClass(LoggedClass parent)
-
         {
             if (parent != null)
             {
                 NotifyEvent += parent.NotifyGeneric;
             }
-            
+
             InstanceId = String.Format("{0}_{1}", GetType().Name, rnd.Next(99));
         }
 
@@ -205,14 +203,16 @@ namespace xSolon.Events
 
         public void Notify(GetMessageDelegate messageCallback, int level)
         {
-            NotifyGeneric(CreateEventEntry(GetCallerMethodName(), level, messageCallback));
+            EventEntry entry = CreateEventEntry(GetCallerMethodName(), level, messageCallback);
+            NotifyGeneric(entry);
         }
 
         public void Notify(int level, Func<string> messageCallback)
         {
             var del = new GetMessageDelegate(messageCallback);
 
-            NotifyGeneric(CreateEventEntry(GetCallerMethodName(), level, del));
+            EventEntry entry = CreateEventEntry(GetCallerMethodName(), level, del);
+            NotifyGeneric(entry);
         }
 
         public void NotifyException(Dictionary<string, object> props, Exception ex)
@@ -225,7 +225,8 @@ namespace xSolon.Events
 
                 message = ex.ToString();
 
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, message, props));
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, message, props);
+                NotifyGeneric(entry);
             }
         }
 
@@ -233,7 +234,8 @@ namespace xSolon.Events
         {
             //if (NotifyEvent != null)
             {
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Information, message, props));
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Information, message, props);
+                NotifyGeneric(entry);
             }
         }
 
@@ -241,56 +243,44 @@ namespace xSolon.Events
         {
             var mssg = string.Format(message, args);
 
-            //if (NotifyEvent != null)
-
-            {
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Information, mssg, props));
-            }
+            EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Information, mssg, props);
+            NotifyGeneric(entry);
         }
 
         public virtual void NotifyVerbose(Dictionary<string, object> props, string message)
         {
-            //if (NotifyEvent != null)
-            {
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, message, props));
-            }
+            EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, message, props);
+            NotifyGeneric(entry);
         }
 
         public virtual void NotifyVerbose(Dictionary<string, object> props, string message, params object[] args)
         {
             var mssg = string.Format(message, args);
 
-            //if (NotifyEvent != null)
-
-            {
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, mssg, props));
-            }
+            EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, mssg, props);
+            NotifyGeneric(entry);
         }
 
         public virtual void NotifyWarning(Dictionary<string, object> props, string message, params object[] args)
         {
             var mssg = string.Format(message, args);
 
-            //if (NotifyEvent != null)
-
-            {
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, mssg, props));
-            }
+            EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, mssg, props);
+            NotifyGeneric(entry);
         }
 
         public virtual void NotifyWarning(Dictionary<string, object> props, string message)
         {
-            //if (NotifyEvent != null)
-            {
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, message, props));
-            }
+            EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, message, props);
+            NotifyGeneric(entry);
         }
 
         public virtual void NotifyError(Dictionary<string, object> props, string message)
         {
             //if (NotifyEvent != null)
             {
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, message, props));
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, message, props);
+                NotifyGeneric(entry);
             }
         }
 
@@ -301,7 +291,8 @@ namespace xSolon.Events
             //if (NotifyEvent != null)
 
             {
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, mssg, props));
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, mssg, props);
+                NotifyGeneric(entry);
             }
         }
 
@@ -321,7 +312,8 @@ namespace xSolon.Events
             {
                 var mssg = string.Format(message, args);
 
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Information, mssg));
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Information, mssg);
+                NotifyGeneric(entry);
             }
         }
 
@@ -343,7 +335,8 @@ namespace xSolon.Events
         {
             //if (NotifyEvent != null)
             {
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, message));
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, message);
+                NotifyGeneric(entry);
             }
         }
 
@@ -354,7 +347,8 @@ namespace xSolon.Events
             //if (NotifyEvent != null)
 
             {
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, mssg));
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, mssg);
+                NotifyGeneric(entry);
             }
         }
 
@@ -365,7 +359,8 @@ namespace xSolon.Events
             //if (NotifyEvent != null)
 
             {
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, mssg));
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, mssg);
+                NotifyGeneric(entry);
             }
         }
 
@@ -373,7 +368,8 @@ namespace xSolon.Events
         {
             //if (NotifyEvent != null)
             {
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, message));
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, message);
+                NotifyGeneric(entry);
             }
         }
 
@@ -381,7 +377,8 @@ namespace xSolon.Events
         {
             //if (NotifyEvent != null)
             {
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, message));
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, message);
+                NotifyGeneric(entry);
             }
         }
 
@@ -392,7 +389,8 @@ namespace xSolon.Events
             //if (NotifyEvent != null)
 
             {
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, mssg));
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, mssg);
+                NotifyGeneric(entry);
             }
         }
 
@@ -431,7 +429,8 @@ namespace xSolon.Events
             //if (NotifyEvent != null)
 
             {
-                NotifyGeneric(CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, message));
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, message);
+                NotifyGeneric(entry);
             }
         }
 

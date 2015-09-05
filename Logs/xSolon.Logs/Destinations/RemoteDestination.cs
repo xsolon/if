@@ -25,7 +25,8 @@ namespace xSolon.Logs.Destinations
         /// <summary>
         ///     Function to modify events before they are committed to service
         /// </summary>
-        [XmlIgnore] public Func<List<EventEntry>, List<EventEntry>> PreProcessEntries = null;
+        [XmlIgnore]
+        public Func<List<EventEntry>, List<EventEntry>> PreProcessEntries = null;
 
         /// <summary>
         ///     Url of service that will receive outgoing logs
@@ -49,6 +50,8 @@ namespace xSolon.Logs.Destinations
                 var json = temp.ToJson();
 
                 var res = HttpPost(ServiceUrl, json);
+
+                Debug.WriteLine(res);
             }
             catch (Exception ex)
             {

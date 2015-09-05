@@ -27,7 +27,8 @@ namespace xSolon.Logs.Destinations
                 try
                 {
                     var res = base.HttpPost(uri, parameters);
-                    Trace.TraceInformation(res);
+
+                    Debug.WriteLine(res);
                 }
                 catch (Exception ex)
                 {

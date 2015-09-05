@@ -3,7 +3,7 @@
   <metadata>
     <id>xSolon.Logs</id>
     <title>xSolon - Logging Application blocks</title>
-    <version>1.0.0.3</version>
+    <version>1.0.0.4</version>
     <authors>martin</authors>
     <owners>martin,xSolon</owners>
     <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
@@ -12,8 +12,13 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Logging application block</description>
     <releaseNotes>
-      1.0.0.3 : 2015/08/24
-        Namespaces to reflect new project: xSolon.Logs
+--------------------------------------------------------------------------------------------------------------------------
+1.0.0.4 : 2015/09/5
+			AsyncRemoteDestination, RemoteDestination: Switched HttpResponse result logging from Trace. to Debug.
+--------------------------------------------------------------------------------------------------------------------------
+1.0.0.3 : 2015/08/24 
+			Namespaces to reflect new project: xSolon.Logs
+--------------------------------------------------------------------------------------------------------------------------
     </releaseNotes>
     <copyright>Copyright 2012</copyright>
     <tags>Logging IF</tags>
