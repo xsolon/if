@@ -59,6 +59,15 @@ namespace xSolon.Events
         /// </summary>
         public event BubbleUpLogEvent NotifyEvent;
 
+        //<configuration>
+        //  <system.diagnostics>
+        //    <switches>
+        //      <add name="CallerSwitch" value="1"/>
+        //    </switches>
+        //  </system.diagnostics>
+        //</configuration>
+        private static BooleanSwitch boolSwitch = new BooleanSwitch("CallerSwitch", "Log caller from stackFrame");
+
         /// <summary>
         ///     This method returns the name of the procedure that called one of the members of the LoggedClass interface
         ///     it should not be
@@ -66,33 +75,39 @@ namespace xSolon.Events
         /// <returns>name of the procedure that called the loggin interface</returns>
         internal static string GetCallerMethodName()
         {
-            // get call stack
-            var stack = new StackTrace();
+            string method = "";
 
-            string method = stack.GetFrame(2).GetMethod().Name;
-
-            try
+            if (boolSwitch.Enabled)
             {
-                if (method.Contains("CreateEventEntry") && stack.FrameCount > 2)
+
+                // get call stack
+                var stack = new StackTrace();
+
+                method = stack.GetFrame(2).GetMethod().Name;
+
+                try
                 {
-                    method = stack.GetFrame(3).GetMethod().Name;
+                    if (method.Contains("CreateEventEntry") && stack.FrameCount > 2)
+                    {
+                        method = stack.GetFrame(3).GetMethod().Name;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Trace.Write(ex.Message);
-            }
-
-            try
-            {
-                if (method.Contains("Log") && stack.FrameCount > 3)
+                catch (Exception ex)
                 {
-                    method = stack.GetFrame(4).GetMethod().Name;
+                    Trace.Write(ex.Message);
                 }
-            }
-            catch (Exception ex)
-            {
-                Trace.Write(ex.Message);
+
+                try
+                {
+                    if (method.Contains("Log") && stack.FrameCount > 3)
+                    {
+                        method = stack.GetFrame(4).GetMethod().Name;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Trace.Write(ex.Message);
+                }
             }
 
             return method;
@@ -203,21 +218,27 @@ namespace xSolon.Events
 
         public void Notify(GetMessageDelegate messageCallback, int level)
         {
-            EventEntry entry = CreateEventEntry(GetCallerMethodName(), level, messageCallback);
-            NotifyGeneric(entry);
+            if (NotifyEvent != null)
+            {
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), level, messageCallback);
+                NotifyGeneric(entry);
+            }
         }
 
         public void Notify(int level, Func<string> messageCallback)
         {
-            var del = new GetMessageDelegate(messageCallback);
+            if (NotifyEvent != null)
+            {
+                var del = new GetMessageDelegate(messageCallback);
 
-            EventEntry entry = CreateEventEntry(GetCallerMethodName(), level, del);
-            NotifyGeneric(entry);
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), level, del);
+                NotifyGeneric(entry);
+            }
         }
 
         public void NotifyException(Dictionary<string, object> props, Exception ex)
         {
-            //if (NotifyEvent != null)
+            if (NotifyEvent != null)
             {
                 string message = string.Empty;
 
@@ -230,9 +251,33 @@ namespace xSolon.Events
             }
         }
 
+        #region Information
+        public void NotifyInformation(int eventId, string message)
+        {
+            if (NotifyEvent != null)
+            {
+                string name = GetCallerMethodName();
+                EventEntry entry = CreateEventEntry(name, (int)EventSeverity.Information, message);
+                entry.EventId = eventId;
+                NotifyGeneric(entry);
+            }
+        }
+
+        public void NotifyInformation(int eventId, string message, params object[] args)
+        {
+            if (NotifyEvent != null)
+            {
+                var mssg = string.Format(message, args);
+
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Information, mssg);
+                entry.EventId = eventId;
+                NotifyGeneric(entry);
+            }
+        }
+
         public virtual void NotifyInformation(Dictionary<string, object> props, string message)
         {
-            //if (NotifyEvent != null)
+            if (NotifyEvent != null)
             {
                 EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Information, message, props);
                 NotifyGeneric(entry);
@@ -241,64 +286,17 @@ namespace xSolon.Events
 
         public virtual void NotifyInformation(Dictionary<string, object> props, string message, params object[] args)
         {
-            var mssg = string.Format(message, args);
-
-            EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Information, mssg, props);
-            NotifyGeneric(entry);
-        }
-
-        public virtual void NotifyVerbose(Dictionary<string, object> props, string message)
-        {
-            EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, message, props);
-            NotifyGeneric(entry);
-        }
-
-        public virtual void NotifyVerbose(Dictionary<string, object> props, string message, params object[] args)
-        {
-            var mssg = string.Format(message, args);
-
-            EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, mssg, props);
-            NotifyGeneric(entry);
-        }
-
-        public virtual void NotifyWarning(Dictionary<string, object> props, string message, params object[] args)
-        {
-            var mssg = string.Format(message, args);
-
-            EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, mssg, props);
-            NotifyGeneric(entry);
-        }
-
-        public virtual void NotifyWarning(Dictionary<string, object> props, string message)
-        {
-            EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, message, props);
-            NotifyGeneric(entry);
-        }
-
-        public virtual void NotifyError(Dictionary<string, object> props, string message)
-        {
-            //if (NotifyEvent != null)
+            if (NotifyEvent != null)
             {
-                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, message, props);
+                var mssg = string.Format(message, args);
+
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Information, mssg, props);
                 NotifyGeneric(entry);
             }
         }
-
-        public virtual void NotifyError(Dictionary<string, object> props, string message, params object[] args)
-        {
-            var mssg = string.Format(message, args);
-
-            //if (NotifyEvent != null)
-
-            {
-                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, mssg, props);
-                NotifyGeneric(entry);
-            }
-        }
-
         public virtual void NotifyInformation(string message)
         {
-            //if (NotifyEvent != null)
+            if (NotifyEvent != null)
             {
                 string name = GetCallerMethodName();
                 EventEntry entry = CreateEventEntry(name, (int)EventSeverity.Information, message);
@@ -308,7 +306,7 @@ namespace xSolon.Events
 
         public virtual void NotifyInformation(string message, params object[] args)
         {
-            //if (NotifyEvent != null)
+            if (NotifyEvent != null)
             {
                 var mssg = string.Format(message, args);
 
@@ -317,13 +315,33 @@ namespace xSolon.Events
             }
         }
 
-        /// <summary>
-        ///     Notify properties to subscribers
-        /// </summary>
-        /// <param name="props">Properties to be logged</param>
+        #endregion
+        #region Verbose
+        public void NotifyVerbose(int eventId, string message)
+        {
+            if (NotifyEvent != null)
+            {
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, message);
+                entry.EventId = eventId;
+                NotifyGeneric(entry);
+            }
+        }
+
+        public void NotifyVerbose(int eventId, string message, params object[] args)
+        {
+            if (NotifyEvent != null)
+            {
+                var mssg = string.Format(message, args);
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, mssg);
+                entry.EventId = eventId;
+
+                NotifyGeneric(entry);
+            }
+        }
+
         public void NotifyVerbose(Dictionary<string, object> props)
         {
-            //if (NotifyEvent != null)
+            if (NotifyEvent != null)
             {
                 var log = CreateEventEntry((int)EventSeverity.Verbose, string.Empty, props);
 
@@ -333,7 +351,7 @@ namespace xSolon.Events
 
         public virtual void NotifyVerbose(string message)
         {
-            //if (NotifyEvent != null)
+            if (NotifyEvent != null)
             {
                 EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, message);
                 NotifyGeneric(entry);
@@ -342,23 +360,68 @@ namespace xSolon.Events
 
         public virtual void NotifyVerbose(string message, params object[] args)
         {
-            var mssg = string.Format(message, args);
 
-            //if (NotifyEvent != null)
-
+            if (NotifyEvent != null)
             {
+                var mssg = string.Format(message, args);
                 EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, mssg);
                 NotifyGeneric(entry);
             }
         }
 
+        public virtual void NotifyVerbose(Dictionary<string, object> props, string message)
+        {
+            if (NotifyEvent != null)
+            {
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, message, props);
+                NotifyGeneric(entry);
+            }
+        }
+
+        public virtual void NotifyVerbose(Dictionary<string, object> props, string message, params object[] args)
+        {
+            if (NotifyEvent != null)
+            {
+                var mssg = string.Format(message, args);
+
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Verbose, mssg, props);
+                NotifyGeneric(entry);
+            }
+        }
+
+        #endregion
+        #region Warning
+        public void NotifyWarning(int eventId, string message, params object[] args)
+        {
+            if (NotifyEvent != null)
+            {
+                var mssg = string.Format(message, args);
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, mssg);
+                entry.EventId = eventId;
+                NotifyGeneric(entry);
+            }
+        }
+
+        public void NotifyWarning(int eventId, string message)
+        {
+            if (NotifyEvent != null)
+            {
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, message);
+                entry.EventId = eventId;
+                NotifyGeneric(entry);
+            }
+        }
+
+        /// <summary>
+        ///     Notify properties to subscribers
+        /// </summary>
+        /// <param name="props">Properties to be logged</param>
         public virtual void NotifyWarning(string message, params object[] args)
         {
-            var mssg = string.Format(message, args);
 
-            //if (NotifyEvent != null)
-
+            if (NotifyEvent != null)
             {
+                var mssg = string.Format(message, args);
                 EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, mssg);
                 NotifyGeneric(entry);
             }
@@ -366,11 +429,42 @@ namespace xSolon.Events
 
         public virtual void NotifyWarning(string message)
         {
-            //if (NotifyEvent != null)
+            if (NotifyEvent != null)
             {
                 EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, message);
                 NotifyGeneric(entry);
             }
+        }
+        public virtual void NotifyWarning(Dictionary<string, object> props, string message, params object[] args)
+        {
+            if (NotifyEvent != null)
+            {
+                var mssg = string.Format(message, args);
+
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, mssg, props);
+                NotifyGeneric(entry);
+            }
+        }
+
+        public virtual void NotifyWarning(Dictionary<string, object> props, string message)
+        {
+            if (NotifyEvent != null)
+            {
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Warning, message, props);
+                NotifyGeneric(entry);
+            }
+        }
+
+        #endregion
+        #region Error
+        public void NotifyError(int eventId, string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void NotifyError(int eventId, string message, params object[] args)
+        {
+            throw new NotImplementedException();
         }
 
         public virtual void NotifyError(string message)
@@ -394,41 +488,65 @@ namespace xSolon.Events
             }
         }
 
+
+        public virtual void NotifyError(Dictionary<string, object> props, string message)
+        {
+            //if (NotifyEvent != null)
+            {
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, message, props);
+                NotifyGeneric(entry);
+            }
+        }
+
+        public virtual void NotifyError(Dictionary<string, object> props, string message, params object[] args)
+        {
+            var mssg = string.Format(message, args);
+
+            //if (NotifyEvent != null)
+
+            {
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, mssg, props);
+                NotifyGeneric(entry);
+            }
+        }
+
+        #endregion
+
         public virtual void NotifyGeneric(EventEntry entry)
         {
-            if (entry.LoggedBy == null)
+            if (NotifyEvent != null)
             {
-                entry.LoggedBy = InstanceId;
-            }
 
-            if (!entry.LoggedBy.Contains(InstanceId))
-            {
-                entry.LoggedBy = string.Format("{0}-{1}", InstanceId, entry.LoggedBy);
-            }
+                if (entry.LoggedBy == null)
+                {
+                    entry.LoggedBy = InstanceId;
+                }
+
+                if (!entry.LoggedBy.Contains(InstanceId))
+                {
+                    entry.LoggedBy = string.Format("{0}-{1}", InstanceId, entry.LoggedBy);
+                }
 
 #if DEBUG
 
-            //Debug.WriteLine(string.Format("{0}\t{1}\t{2}", entry.Time, entry.Level.ToString(), entry.Message)); 
+                //Debug.WriteLine(string.Format("{0}\t{1}\t{2}", entry.Time, entry.Level.ToString(), entry.Message)); 
 
 #endif
 
-            if (NotifyEvent != null)
-            {
                 NotifyEvent(entry);
             }
         }
 
         public virtual void NotifyException(Exception ex)
         {
-            string message = string.Empty;
-
-            Exception innerEx = ex;
-
-            message = ex.ToString();
-
-            //if (NotifyEvent != null)
-
+            if (NotifyEvent != null)
             {
+                string message = string.Empty;
+
+                Exception innerEx = ex;
+
+                message = ex.ToString();
+
                 EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, message);
                 NotifyGeneric(entry);
             }
@@ -458,5 +576,23 @@ namespace xSolon.Events
         }
 
         #endregion
+
+
+        public void NotifyException(int eventId, Exception ex)
+        {
+            if (NotifyEvent != null)
+            {
+                string message = string.Empty;
+
+                Exception innerEx = ex;
+
+                message = ex.ToString();
+
+                EventEntry entry = CreateEventEntry(GetCallerMethodName(), (int)EventSeverity.Error, message);
+                entry.EventId = eventId;
+
+                NotifyGeneric(entry);
+            }
+        }
     }
 }

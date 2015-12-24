@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLogs", "MyLogs\MyLogs.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nugetTests", "nugetTests", "{85272C77-37E5-4BF0-BE99-E774701FCEF8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xSolon.TraceListeners", "xSolon.TraceListeners\xSolon.TraceListeners.csproj", "{8DC608CE-5DE3-4C63-A684-8301A820BDEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{99014242-1F19-4353-8488-6B7BA06D7AD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99014242-1F19-4353-8488-6B7BA06D7AD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99014242-1F19-4353-8488-6B7BA06D7AD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DC608CE-5DE3-4C63-A684-8301A820BDEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DC608CE-5DE3-4C63-A684-8301A820BDEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DC608CE-5DE3-4C63-A684-8301A820BDEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DC608CE-5DE3-4C63-A684-8301A820BDEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,11 +7,11 @@ namespace xSolon.Events
 {
     public enum EventSeverity
     {
-        None = 500,
-        Error = 100,
-        Warning = 70,
-        Information = 50,
-        Verbose = 20,
-        VerboseEx = 10
+        None = 10000,
+        Error = 8000,
+        Warning = 6000,
+        Information = 4000,
+        Verbose = 2000,
+        VerboseEx = 1000
     }
 }

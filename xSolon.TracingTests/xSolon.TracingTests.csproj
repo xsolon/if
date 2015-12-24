@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E6580D46-4469-4134-A823-47A5C2621673}</ProjectGuid>
+    <ProjectGuid>{30F84804-6C7D-4A43-8F78-A110A615DFA9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>xSolon.LogsTests</RootNamespace>
-    <AssemblyName>xSolon.LogsTests</AssemblyName>
+    <RootNamespace>xSolon.TracingTests</RootNamespace>
+    <AssemblyName>xSolon.TracingTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -36,8 +36,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Messaging" />
-    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -52,24 +50,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Destinations\RemoteDestinationTests.cs" />
-    <Compile Include="Destinations\TraceDestinationTests.cs" />
-    <Compile Include="LoggerClassTests.cs" />
-    <Compile Include="MsmqTraceListenerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleClass.cs" />
+    <Compile Include="TracedClassTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\xSolon.Logs\xSolon.Logs.csproj">
-      <Project>{43DE8FEF-48D4-4AC9-AD6A-2085B09D3CDD}</Project>
-      <Name>xSolon.Logs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Events\xSolon.Events\xSolon.Events.csproj">
-      <Project>{bc5d70d0-3fca-4904-b482-c26109294e9d}</Project>
-      <Name>xSolon.Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\xSolon.TraceListeners\xSolon.TraceListeners.csproj">
-      <Project>{8DC608CE-5DE3-4C63-A684-8301A820BDEB}</Project>
-      <Name>xSolon.TraceListeners</Name>
+    <ProjectReference Include="..\xSolon.Tracing\xSolon.Tracing.csproj">
+      <Project>{AD8992EE-58B7-4D42-8908-C0CC9536D90D}</Project>
+      <Name>xSolon.Tracing</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
