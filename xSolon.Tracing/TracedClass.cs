@@ -13,17 +13,17 @@ namespace xSolon.Tracing
         public TracedClass(ExtendedTraceSource source)
         {
 
-            trace = source;
+            Trace = source;
         }
 
         public TracedClass()
         {
-            trace = new ExtendedTraceSource();
+            Trace = new ExtendedTraceSource();
         }
 
         public TracedClass(string sourceName)
         {
-            trace = new ExtendedTraceSource(sourceName);
+            Trace = new ExtendedTraceSource(sourceName);
 
         }
 
@@ -33,11 +33,11 @@ namespace xSolon.Tracing
 
         public void Indent()
         {
-            trace.Indent();
+            Trace.Indent();
         }
         public void UnIndent()
         {
-            trace.UnIndent();
+            Trace.UnIndent();
         }
 
         //
@@ -61,7 +61,7 @@ namespace xSolon.Tracing
         [Conditional("TRACE")]
         public void TraceData(TraceEventType eventType, int id, params object[] data)
         {
-            trace.TraceData(eventType, id, data);
+            Trace.TraceData(eventType, id, data);
         }
 
         //
@@ -85,7 +85,7 @@ namespace xSolon.Tracing
         [Conditional("TRACE")]
         public void TraceData(TraceEventType eventType, int id, object data)
         {
-            trace.TraceData(eventType, id, data);
+            Trace.TraceData(eventType, id, data);
         }
 
         //
@@ -106,7 +106,7 @@ namespace xSolon.Tracing
         [Conditional("TRACE")]
         public void TraceEvent(TraceEventType eventType, int id)
         {
-            trace.TraceEvent(eventType, id);
+            Trace.TraceEvent(eventType, id);
         }
 
         //
@@ -130,7 +130,7 @@ namespace xSolon.Tracing
         [Conditional("TRACE")]
         public void TraceEvent(TraceEventType eventType, int id, string message)
         {
-            trace.TraceEvent(eventType, id, message);
+            Trace.TraceEvent(eventType, id, message);
         }
         //
         // Summary:
@@ -165,7 +165,7 @@ namespace xSolon.Tracing
         [Conditional("TRACE")]
         public void TraceEvent(TraceEventType eventType, int id, string format, params object[] args)
         {
-            trace.TraceEvent(eventType, id, format, args);
+            Trace.TraceEvent(eventType, id, format, args);
         }
 
         //
@@ -184,7 +184,7 @@ namespace xSolon.Tracing
         public void TraceInformation(string message)
         {
 
-            trace.TraceInformation(message);
+            Trace.TraceInformation(message);
         }
 
         //
@@ -213,12 +213,12 @@ namespace xSolon.Tracing
         [Conditional("TRACE")]
         public void TraceInformation(string format, params object[] args)
         {
-            trace.TraceInformation(format, args);
+            Trace.TraceInformation(format, args);
         }
 
         #endregion
 
-        public ExtendedTraceSource trace { get; private set; }
+        public ExtendedTraceSource Trace { get; private set; }
 
     }
 

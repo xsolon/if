@@ -14,7 +14,8 @@ namespace xSolon.Tracing
 
         private readonly T _dal;
 
-        public TracedProxy(T dal) : base(dal.GetType())
+        public TracedProxy(T dal)
+            : base(dal.GetType())
         {
             _dal = dal;
 
@@ -68,7 +69,7 @@ namespace xSolon.Tracing
 
         public delegate void Action();
 
-        TimeSpan Elapsed(Action action) 
+        TimeSpan Elapsed(Action action)
         {
 
             var stopWatch = new Stopwatch();
@@ -110,10 +111,6 @@ namespace xSolon.Tracing
         {
             var methodCall = msg as IMethodCallMessage;
             var methodInfo = methodCall.MethodBase as MethodInfo;
-            var inParams = GetParams(methodCall);
-
-            //_dal.NotifyVerbose(inParams, "{1} - Before executing '{0}'", methodCall.MethodName, typeName);
-
             try
             {
                 object result = null;
@@ -123,11 +120,20 @@ namespace xSolon.Tracing
                     result = methodInfo.Invoke(_dal, methodCall.InArgs);
                 });
 
-                inParams.Add("Result", GetSerializedObject(result));
+                if ("TraceData|TraceEvent|get_Trace|Indent|UnIndent".Contains(methodCall.MethodName))
+                {
 
-                _dal.TraceEvent(TraceEventType.Verbose, 1601, "{1,-10} - {0,-10}: {2}", methodCall.MethodName, typeName, elapsed);
+                }
+                else
+                {
+                    var inParams = GetParams(methodCall);
 
-                TraceParameters(inParams);
+                    inParams.Add("Result", GetSerializedObject(result));
+
+                    _dal.TraceEvent(TraceEventType.Verbose, 1601, "{1,-10} - {0,-10}: {2}", methodCall.MethodName, typeName, elapsed);
+
+                    TraceParameters(inParams);
+                }
 
                 return new ReturnMessage(result, null, 0, methodCall.LogicalCallContext, methodCall);
             }
@@ -135,7 +141,7 @@ namespace xSolon.Tracing
             {
                 _dal.TraceEvent(TraceEventType.Error, 1603, "{1} - Exception {0} executing '{1}'", e, methodCall.MethodName, typeName);
 
-                _dal.TraceData(TraceEventType.Error, 1604,e.ToString());
+                _dal.TraceData(TraceEventType.Error, 1604, e.ToString());
 
                 throw;
             }

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>xSolon.Tracing</id>
-    <version>0.1.1.0</version>
+    <version>0.1.2.0</version>
     <authors>martin,xSolon</authors>
     <owners>xSolon</owners>
     <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
@@ -11,17 +11,20 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Tiny/Simple .net Tracing</description>
     <releaseNotes>
---------------------------------------------------------------------------------------------------------------------------
-0.1.1.0 : 2015/12/23
-ExtendedTraceSource: TraceSource that defined helper methods: Indent, UnIndent
-TracedClass: New Constructor taking an ExtendedTraceSource as a parameter
---------------------------------------------------------------------------------------------------------------------------
-0.1.0.0 : 2015/12/23
-TracedClass: Base class that uses an internal TraceSource to trace events. Inherits from MarshalByRefObject to take advantage of RealProxy for automation (tracing in particular)
-TracedProxy: Specialized RealProxy to Trace TracedClass. Traces arguments and elapsed time of every method in TracedClasses automatically
-Ment to be used for debugging
-Extensions: Static methods to easy use of proxies
---------------------------------------------------------------------------------------------------------------------------
+      0.1.2.0 : 2015/12/24 --------------------------------------------------------------------------------------------------------------------------
+      InMemoryTraceListener: Sample Trace Listener
+      TracedProxy: Skip auditing implementation methods
+
+      0.1.1.0 : 2015/12/23 --------------------------------------------------------------------------------------------------------------------------
+      ExtendedTraceSource: TraceSource that defined helper methods: Indent, UnIndent
+      TracedClass: New Constructor taking an ExtendedTraceSource as a parameter
+
+      0.1.0.0 : 2015/12/23 --------------------------------------------------------------------------------------------------------------------------
+      TracedClass: Base class that uses an internal TraceSource to trace events. Inherits from MarshalByRefObject to take advantage of RealProxy for automation (tracing in particular)
+      TracedProxy: Specialized RealProxy to Trace TracedClass. Traces arguments and elapsed time of every method in TracedClasses automatically
+      Ment to be used for debugging
+      Extensions: Static methods to easy use of proxies
+      
     </releaseNotes>
     <copyright>Copyright 2015</copyright>
     <tags>Infrastructure Notifications Tracing Logging</tags>

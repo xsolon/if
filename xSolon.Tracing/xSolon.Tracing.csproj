@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="ExtendedTraceSource.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="MemTraceListener.cs" />
+    <Compile Include="InMemoryTraceListener.cs" />
     <Compile Include="TracedClass.cs" />
     <Compile Include="TracedProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
