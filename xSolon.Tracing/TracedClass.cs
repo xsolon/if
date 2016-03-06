@@ -31,6 +31,12 @@ namespace xSolon.Tracing
 
         #region Tracing
 
+
+        public void NotifyInfo()
+        {
+
+        }
+
         public void Indent()
         {
             Trace.Indent();

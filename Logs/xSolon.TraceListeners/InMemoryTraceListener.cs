@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using xSolon.Tracing;
 
-namespace xSolon.Tracing
+namespace xSolon.TraceListeners
 {
-    public class InMemoryTraceListener : TraceListener
+    public class InMemoryTraceListener : TransactionTraceListener
     {
 
         protected override string[] GetSupportedAttributes()
@@ -27,6 +28,8 @@ namespace xSolon.Tracing
             message = FormatMessage(message);
 
             builder.Append(message);
+
+            
         }
 
         string FormatMessage(string message)
@@ -69,7 +72,7 @@ namespace xSolon.Tracing
 
         StringBuilder builder = new StringBuilder();
 
-        public string GetFullTrace()
+        public override string GetTransaction()
         {
 
             return builder.ToString();

@@ -23,6 +23,7 @@ namespace xSolon.Tracing
             {
                 listener.IndentLevel--;
             }
+
         }
 
         #region ctor

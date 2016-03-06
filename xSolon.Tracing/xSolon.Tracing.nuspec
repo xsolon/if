@@ -2,15 +2,23 @@
 <package >
   <metadata>
     <id>xSolon.Tracing</id>
-    <version>0.1.2.0</version>
-    <authors>martin,xSolon</authors>
+    <version>0.1.2.3</version>
+    <authors>xSolon</authors>
     <owners>xSolon</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
-    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <licenseUrl>http://www.vanvil.net/tracingLicense</licenseUrl>
+    <projectUrl>http://www.vanvil.net</projectUrl>
+    <iconUrl>http://www.vanvil.net/vasquare.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Tiny/Simple .net Tracing</description>
+    <description>Tiny/Simple .net Diagnostics Tracing</description>
     <releaseNotes>
+      
+      0.1.2.3 : 2016/03/06 --------------------------------------------------------------------------------------------------------------------------
+      Target .net 3.5
+      
+      0.1.2.2 : 2016/03/05 --------------------------------------------------------------------------------------------------------------------------
+      xSolon.Tracing.Extensions: Indent/Unindent listeners of TraceSource classes
+      ActivityScope class: Additional constructor
+      
       0.1.2.0 : 2015/12/24 --------------------------------------------------------------------------------------------------------------------------
       InMemoryTraceListener: Sample Trace Listener
       TracedProxy: Skip auditing implementation methods

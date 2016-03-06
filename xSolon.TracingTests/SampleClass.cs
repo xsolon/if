@@ -10,6 +10,10 @@ namespace xSolon.TracingTests
     class SampleClass : TracedClass
     {
 
+        public SampleClass(ExtendedTraceSource source): base(source)
+        {
+
+        }
         public SampleClass()
         {
 

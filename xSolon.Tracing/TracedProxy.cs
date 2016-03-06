@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
@@ -55,7 +54,7 @@ namespace xSolon.Tracing
             {
                 try
                 {
-                    res = JsonConvert.SerializeObject(obj, Formatting.Indented);
+                    //res = JsonConvert.SerializeObject(obj, Formatting.Indented);
                 }
                 catch (Exception ex)
                 {
@@ -120,7 +119,7 @@ namespace xSolon.Tracing
                     result = methodInfo.Invoke(_dal, methodCall.InArgs);
                 });
 
-                if ("TraceData|TraceEvent|get_Trace|Indent|UnIndent".Contains(methodCall.MethodName))
+                if ("TraceInformation|TraceData|TraceEvent|get_Trace|Indent|UnIndent".Contains(methodCall.MethodName))
                 {
 
                 }
