@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using xSolon.Tracing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using xSolon.TracingTests;
@@ -99,9 +98,9 @@ namespace xSolon.Tracing.Tests
                 using (var scope = new ActivityScope(source, "Validate"))
                 {
 
-                    var service = new TracingTests.ServiceReference1.Service1Client("BasicHttpBinding_IService1");
+                    //var service = new TracingTests.ServiceReference1.Service1Client("BasicHttpBinding_IService1");
 
-                    service.DoWork();
+                    //service.DoWork();
 
                     sample2.TraceEvent(TraceEventType.Verbose, 2, "Request is Valid");
                 }
