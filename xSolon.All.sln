@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xSolon.Tracing30", "xSolon.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xSolon.Tracing.Source", "xSolon.Tracing.Source\xSolon.Tracing.Source.csproj", "{639B5695-40AC-4800-9244-5C4491EDFF99}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tracing.Source", "Tracing.Source", "{787D6A10-DB7E-4212-B6C3-42D247D1418E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracing.Source.Test", "Tracing.Source.Test\Tracing.Source.Test.csproj", "{1DFFFF44-40AE-4392-A085-FEE556B30888}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,11 +81,17 @@ Global
 		{639B5695-40AC-4800-9244-5C4491EDFF99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{639B5695-40AC-4800-9244-5C4491EDFF99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{639B5695-40AC-4800-9244-5C4491EDFF99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DFFFF44-40AE-4392-A085-FEE556B30888}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DFFFF44-40AE-4392-A085-FEE556B30888}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DFFFF44-40AE-4392-A085-FEE556B30888}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DFFFF44-40AE-4392-A085-FEE556B30888}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D6397A30-E236-4E87-8A34-B8DBED1C58E6} = {804FE211-B67D-49E8-94B8-F7539A6626A4}
+		{639B5695-40AC-4800-9244-5C4491EDFF99} = {787D6A10-DB7E-4212-B6C3-42D247D1418E}
+		{1DFFFF44-40AE-4392-A085-FEE556B30888} = {787D6A10-DB7E-4212-B6C3-42D247D1418E}
 	EndGlobalSection
 EndGlobal

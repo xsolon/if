@@ -77,7 +77,7 @@
     </ProjectReference>
     <ProjectReference Include="..\xSolon.Tracing\xSolon.Tracing40.csproj">
       <Project>{AD8992EE-58B7-4D42-8908-C0CC9536D90D}</Project>
-      <Name>xSolon.Tracing</Name>
+      <Name>xSolon.Tracing40</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
