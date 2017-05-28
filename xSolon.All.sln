@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xSolon.Events", "Events\xSolon.Events\xSolon.Events.csproj", "{BC5D70D0-3FCA-4904-B482-C26109294E9D}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerComponent", "ServerComponent\ServerComponent.csproj", "{EA20B9CC-49EA-4D2A-A7B4-22977852B50C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xSolon.Tracing30", "xSolon.Tracing30\xSolon.Tracing30.csproj", "{29A9FA1A-D343-4C2F-BC3A-E09FFE9C523A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xSolon.Tracing.Source", "xSolon.Tracing.Source\xSolon.Tracing.Source.csproj", "{639B5695-40AC-4800-9244-5C4491EDFF99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{29A9FA1A-D343-4C2F-BC3A-E09FFE9C523A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29A9FA1A-D343-4C2F-BC3A-E09FFE9C523A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29A9FA1A-D343-4C2F-BC3A-E09FFE9C523A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{639B5695-40AC-4800-9244-5C4491EDFF99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{639B5695-40AC-4800-9244-5C4491EDFF99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{639B5695-40AC-4800-9244-5C4491EDFF99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{639B5695-40AC-4800-9244-5C4491EDFF99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
