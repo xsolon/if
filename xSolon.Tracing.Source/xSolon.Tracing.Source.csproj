@@ -40,20 +40,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="content\Diagnostics\ActivityScope.cs" />
-    <Compile Include="content\Diagnostics\ExtendedTraceSource.cs" />
-    <Compile Include="content\Diagnostics\Extensions.cs" />
-    <Compile Include="content\Diagnostics\LogicalOperationScope.cs" />
-    <Compile Include="content\Diagnostics\TracedClass.cs" />
-    <Compile Include="content\Diagnostics\TracedProxy.cs" />
+    <Compile Include="Diagnostics\ActivityScope.cs" />
+    <Compile Include="Diagnostics\Extensions.cs" />
+    <Compile Include="Diagnostics\LogicalOperationScope.cs" />
+    <Compile Include="Diagnostics\TracedClass.cs" />
+    <Compile Include="Diagnostics\TracedProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\Diagnostics\License.txt" />
-    <Content Include="content\Diagnostics\ReadMe.txt" />
+    <Content Include="Diagnostics\License.txt" />
+    <Content Include="Diagnostics\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="package\xSolon.Tracing.Source.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="content\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

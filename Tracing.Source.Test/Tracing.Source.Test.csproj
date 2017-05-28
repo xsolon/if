@@ -48,5 +48,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\xSolon.Tracing.Source\xSolon.Tracing.Source.csproj">
+      <Project>{639b5695-40ac-4800-9244-5c4491edff99}</Project>
+      <Name>xSolon.Tracing.Source</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

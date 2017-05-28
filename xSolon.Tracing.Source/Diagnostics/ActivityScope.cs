@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Xml;
 using System.Security;
 
-namespace Essential.Diagnostics
+namespace System.Diagnostics
 {
     /// <summary>
     /// Sets the correlation manager ActivityId for the life of the object,
@@ -107,6 +107,21 @@ namespace Essential.Diagnostics
         private readonly string ActivityScope_Start = "Start";
         private readonly string ActivityScope_Stop = "Stop";
         private readonly string ActivityScope_TransferOut = "TransferOut";
+
+        public ActivityScope(TraceSource source, string activityName)
+        {
+
+            _source = source;
+            _transferInMessage = $"{activityName}.{ActivityScope_Transfer}";
+            _startMessage = $"{activityName}.{ActivityScope_Start}";
+            _transferOutMessage = $"{activityName}.{ActivityScope_TransferOut}";
+            _stopMessage = $"{activityName}.{ActivityScope_Stop}";
+
+            _previousActivityId = Trace.CorrelationManager.ActivityId;
+
+            StartScope();
+
+        }
 
         /// <summary>
         /// Constructor. Sets the ActivityId for the life of the object, logging events with the specified event IDs, messages, and activity name (when using XML listeners). 

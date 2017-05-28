@@ -6,7 +6,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Runtime.Remoting.Proxies;
 using System.Text;
 
-namespace xSolon.Tracing
+namespace System.Diagnostics
 {
     public class TracedProxy<T> : RealProxy where T : TracedClass
     {
@@ -54,7 +54,8 @@ namespace xSolon.Tracing
             {
                 try
                 {
-                    //res = JsonConvert.SerializeObject(obj, Formatting.Indented);
+                    //res = JsonConvert.SerializeObject(obj, Formatting.Indented); //Newtonsoft dependency
+                    res = obj.ToString();
                 }
                 catch (Exception ex)
                 {
@@ -113,25 +114,30 @@ namespace xSolon.Tracing
             try
             {
                 object result = null;
-
-                var elapsed = Elapsed(() =>
-                {
-                    result = methodInfo.Invoke(_dal, methodCall.InArgs);
-                });
+                TimeSpan elapsed;
 
                 if ("TraceInformation|TraceData|TraceEvent|get_Trace|Indent|UnIndent".Contains(methodCall.MethodName))
                 {
-
+                    result = methodInfo.Invoke(_dal, methodCall.InArgs);
                 }
                 else
                 {
                     var inParams = GetParams(methodCall);
 
-                    inParams.Add("Result", GetSerializedObject(result));
+                    using (var scope = new ActivityScope(_dal.Trace, methodCall.MethodName))
+                    {
+                        elapsed = Elapsed(() =>
+                        {
+                            result = methodInfo.Invoke(_dal, methodCall.InArgs);
+                        });
 
-                    _dal.TraceEvent(TraceEventType.Verbose, 1601, "{1,-10} - {0,-10}: {2}", methodCall.MethodName, typeName, elapsed);
+                        inParams.Add("Result", GetSerializedObject(result));
 
-                    TraceParameters(inParams);
+                        _dal.TraceEvent(TraceEventType.Verbose, 1601, "{1} - {0}: {2}", methodCall.MethodName, typeName, elapsed);
+
+                        TraceParameters(inParams);
+                    }
+
                 }
 
                 return new ReturnMessage(result, null, 0, methodCall.LogicalCallContext, methodCall);

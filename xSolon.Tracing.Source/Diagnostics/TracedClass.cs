@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
-namespace xSolon.Tracing
+namespace System.Diagnostics
 {
     public class TracedClass : MarshalByRefObject
     {
 
         #region ctor
 
-        public TracedClass(ExtendedTraceSource source)
+        public TracedClass(TraceSource source)
         {
 
             Trace = source;
@@ -18,12 +18,12 @@ namespace xSolon.Tracing
 
         public TracedClass()
         {
-            Trace = new ExtendedTraceSource();
+            Trace = new TraceSource("xSolon");
         }
 
         public TracedClass(string sourceName)
         {
-            Trace = new ExtendedTraceSource(sourceName);
+            Trace = new TraceSource(sourceName);
 
         }
 
@@ -32,18 +32,13 @@ namespace xSolon.Tracing
         #region Tracing
 
 
-        public void NotifyInfo()
-        {
-
-        }
-
         public void Indent()
         {
             Trace.Indent();
         }
         public void UnIndent()
         {
-            Trace.UnIndent();
+            Trace.Unindent();
         }
 
         //
@@ -224,7 +219,7 @@ namespace xSolon.Tracing
 
         #endregion
 
-        public ExtendedTraceSource Trace { get; private set; }
+        public TraceSource Trace { get; private set; }
 
     }
 

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace xSolon.Tracing
+﻿namespace System.Diagnostics
 {
     public static class Extensions
     {
