@@ -43,29 +43,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActivityScope.cs" />
-    <Compile Include="ExtendedTraceSource.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="LogicalOperationScope.cs" />
-    <Compile Include="TracedClass.cs" />
-    <Compile Include="TracedProxy.cs" />
+    <Compile Include="..\xSolon.Tracing.Source\Diagnostics\ActivityScope.cs">
+      <Link>Diagnostics\ActivityScope.cs</Link>
+    </Compile>
+    <Compile Include="..\xSolon.Tracing.Source\Diagnostics\Extensions.cs">
+      <Link>Diagnostics\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\xSolon.Tracing.Source\Diagnostics\LogicalOperationScope.cs">
+      <Link>Diagnostics\LogicalOperationScope.cs</Link>
+    </Compile>
+    <Compile Include="..\xSolon.Tracing.Source\Diagnostics\TracedClass.cs">
+      <Link>Diagnostics\TracedClass.cs</Link>
+    </Compile>
+    <Compile Include="..\xSolon.Tracing.Source\Diagnostics\TracedProxy.cs">
+      <Link>Diagnostics\TracedProxy.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TransactionTraceListener.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="tracing.snk" />
-    <None Include="xSolon.Tracing.nuspec">
+    <None Include="package\xSolon.Tracing.nuspec">
       <SubType>Designer</SubType>
     </None>
-    <None Include="_CreateNewNuGetPackage\Config.ps1" />
-    <None Include="_CreateNewNuGetPackage\DoNotModify\CreateNuGetPackage.ps1" />
-    <None Include="_CreateNewNuGetPackage\DoNotModify\New-NuGetPackage.ps1" />
-    <None Include="_CreateNewNuGetPackage\DoNotModify\UploadNuGetPackage.ps1" />
-    <None Include="_CreateNewNuGetPackage\RunMeToUploadNuGetPackage.cmd" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="_CreateNewNuGetPackage\DoNotModify\NuGet.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

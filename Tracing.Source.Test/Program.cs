@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -12,16 +13,25 @@ namespace Tracing.Source.Test
         static void Main(string[] args)
         {
 
-            var trace = new TraceSource("Me", SourceLevels.All);
-
-            var driver = new MyDriver(trace);
-            driver = driver.Wrap();
-
-            var resul = driver.AMethod(1, "dos");
-            
+            var trace = new TraceSource("TestProgram", SourceLevels.All);
             trace.Listeners.Add(new ConsoleTraceListener());
             //trace.Listeners.Add(new DefaultTraceListener());
 
+            Extensions.GlobalSerializer = (obj) =>
+            {
+                return "MyDriver:"+ obj?.ToString() ;
+            };
+
+            var driver = new MyDriver(trace);
+            driver = driver.Wrap();
+            //driver = driver.Wrap((obj) =>
+            //{
+            //    var res = JsonConvert.SerializeObject(obj, Formatting.Indented); //Newtonsoft dependency
+            //    return res;
+            //});
+
+            var resul = driver.AMethod(1, "dos");
+            driver.ComplexParamsMethod(2, new MyDriver.MyParam() { Val1 = 3, Val2 = "A Val 2" });
             trace.TraceInformation("Hello World");
             trace.Indent();
             trace.TraceInformation("Hello America");
@@ -54,6 +64,17 @@ namespace Tracing.Source.Test
             {
 
                 return $"{param2}.{param1}";
+            }
+
+            public MyParam ComplexParamsMethod(int param1, MyParam param2)
+            {
+                return param2;
+
+            }
+            public class MyParam
+            {
+                public int Val1 = 1;
+                public string Val2 { get; set; }
             }
         }
     }

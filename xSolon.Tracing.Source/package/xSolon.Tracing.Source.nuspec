@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>xSolon.Tracing.Source</id>
-        <version>1.0.3</version>
+        <version>1.0.4</version>
         <title>xSolon.Tracing.Source</title>
         <authors>xSolon</authors>
         <owners>xSolon</owners>
@@ -10,8 +10,11 @@
         <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
         <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>System.Diagnostics tracing helpers</description>
-        <releaseNotes>Proxy logs elapsed time and parameter values</releaseNotes>
+        <description>System.Diagnostics tracing helpers. This package deployes source code for projects that can't have dll dependencies. Use pacakge xSolon.Tracing if dlls can be used.</description>
+        <releaseNotes>
+          v 1.0.4 - 2017-05-28: Serialize and GlobalSerializer allow to set parameter serializer function.
+          v 1.0.3 - 2017-05-27: Proxy logs elapsed time and parameter values
+        </releaseNotes>
         <copyright>Copyright 2017</copyright>
         <tags>Tracing Diagnostics</tags>
     </metadata>

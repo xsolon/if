@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>xSolon.Tracing</id>
-    <version>0.1.2.4</version>
+    <version>1.0.4</version>
     <authors>xSolon</authors>
     <owners>xSolon</owners>
     <licenseUrl>http://www.vanvil.net/tracingLicense</licenseUrl>
@@ -11,14 +11,16 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Tiny/Simple .net Diagnostics Tracing</description>
     <releaseNotes>
+      v 1.0.4 - 2017-05-28: Serialize and GlobalSerializer allow to set parameter serializer function.
+      v 1.0.3 - 2017-05-27: Proxy logs elapsed time and parameter values
       
       0.1.2.4 : 2016/03/06 --------------------------------------------------------------------------------------------------------------------------
       Target .net 3.5/.net 4.0
-      
+
       0.1.2.2 : 2016/03/05 --------------------------------------------------------------------------------------------------------------------------
       xSolon.Tracing.Extensions: Indent/Unindent listeners of TraceSource classes
       ActivityScope class: Additional constructor
-      
+
       0.1.2.0 : 2015/12/24 --------------------------------------------------------------------------------------------------------------------------
       InMemoryTraceListener: Sample Trace Listener
       TracedProxy: Skip auditing implementation methods
@@ -32,20 +34,29 @@
       TracedProxy: Specialized RealProxy to Trace TracedClass. Traces arguments and elapsed time of every method in TracedClasses automatically
       Ment to be used for debugging
       Extensions: Static methods to easy use of proxies
-      
+
     </releaseNotes>
-    <copyright>Copyright 2015</copyright>
+    <copyright>Copyright 2015 - 2017</copyright>
     <tags>Infrastructure Notifications Tracing Logging</tags>
     <dependencies>
       <!--<dependency id="SampleDependency" version="1.0" />-->
     </dependencies>
   </metadata>
   <files>
-    <file src="F:\sc\github\if\xSolon.Tracing\bin\Release\xSolon.Tracing.dll" target="lib\net40\xSolon.Tracing.dll" />
-    <file src="F:\sc\github\if\xSolon.Tracing\bin\Release\xSolon.Tracing.pdb" target="lib\net40\xSolon.Tracing.pdb" />
-    <file src="F:\sc\github\if\xSolon.Tracing\bin\Release\xSolon.Tracing.xml" target="lib\net40\xSolon.Tracing.xml" />
-    <file src="F:\sc\github\if\xSolon.Tracing30\bin\Release\xSolon.Tracing.dll" target="lib\net35\xSolon.Tracing.dll" />
-    <file src="F:\sc\github\if\xSolon.Tracing30\bin\Release\xSolon.Tracing.pdb" target="lib\net35\xSolon.Tracing.pdb" />
-    <file src="F:\sc\github\if\xSolon.Tracing30\bin\Release\xSolon.Tracing.xml" target="lib\net35\xSolon.Tracing.xml" />
+    <file src="..\bin\Release\xSolon.Tracing.dll" target="lib\net40\xSolon.Tracing.dll" />
+    <file src="..\bin\Release\xSolon.Tracing.pdb" target="lib\net40\xSolon.Tracing.pdb" />
+    <file src="..\bin\Release\xSolon.Tracing.xml" target="lib\net40\xSolon.Tracing.xml" />
+    
+    <file src="..\..\xSolon.Tracing46\bin\Release\xSolon.Tracing.dll" target="lib\net46\xSolon.Tracing.dll" />
+    <file src="..\..\xSolon.Tracing46\bin\Release\xSolon.Tracing.pdb" target="lib\net46\xSolon.Tracing.pdb" />
+    <file src="..\..\xSolon.Tracing46\bin\Release\xSolon.Tracing.xml" target="lib\net46\xSolon.Tracing.xml" />
+    
+    <file src="..\..\xSolon.Tracing45\bin\Release\xSolon.Tracing.dll" target="lib\net45\xSolon.Tracing.dll" />
+    <file src="..\..\xSolon.Tracing45\bin\Release\xSolon.Tracing.pdb" target="lib\net45\xSolon.Tracing.pdb" />
+    <file src="..\..\xSolon.Tracing45\bin\Release\xSolon.Tracing.xml" target="lib\net45\xSolon.Tracing.xml" />
+    
+    <file src="..\..\xSolon.Tracing30\bin\Release\xSolon.Tracing.dll" target="lib\net35\xSolon.Tracing.dll" />
+    <file src="..\..\xSolon.Tracing30\bin\Release\xSolon.Tracing.pdb" target="lib\net35\xSolon.Tracing.pdb" />
+    <file src="..\..\xSolon.Tracing30\bin\Release\xSolon.Tracing.xml" target="lib\net35\xSolon.Tracing.xml" />
 </files>
 </package>

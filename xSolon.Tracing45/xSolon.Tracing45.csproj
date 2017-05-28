@@ -1,17 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{29A9FA1A-D343-4C2F-BC3A-E09FFE9C523A}</ProjectGuid>
+    <ProjectGuid>{82D438FD-3D5D-4586-A910-6198FBD8AECF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>xSolon.Tracing</RootNamespace>
     <AssemblyName>xSolon.Tracing</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,48 +28,35 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\xSolon.Tracing.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\xSolon.Tracing\tracing.snk</AssemblyOriginatorKeyFile>
+    <DocumentationFile>bin\Release\xSolon.Tracing.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\xSolon.Tracing.Source\Diagnostics\ActivityScope.cs">
-      <Link>ActivityScope.cs</Link>
+      <Link>Diagnostics\ActivityScope.cs</Link>
     </Compile>
     <Compile Include="..\xSolon.Tracing.Source\Diagnostics\Extensions.cs">
-      <Link>Extensions.cs</Link>
+      <Link>Diagnostics\Extensions.cs</Link>
     </Compile>
     <Compile Include="..\xSolon.Tracing.Source\Diagnostics\LogicalOperationScope.cs">
-      <Link>LogicalOperationScope.cs</Link>
+      <Link>Diagnostics\LogicalOperationScope.cs</Link>
     </Compile>
     <Compile Include="..\xSolon.Tracing.Source\Diagnostics\TracedClass.cs">
-      <Link>TracedClass.cs</Link>
+      <Link>Diagnostics\TracedClass.cs</Link>
     </Compile>
     <Compile Include="..\xSolon.Tracing.Source\Diagnostics\TracedProxy.cs">
-      <Link>TracedProxy.cs</Link>
+      <Link>Diagnostics\TracedProxy.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\xSolon.Tracing\tracing.snk">
-      <Link>tracing.snk</Link>
-    </None>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

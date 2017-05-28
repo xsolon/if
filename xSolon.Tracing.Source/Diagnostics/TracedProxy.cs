@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.Runtime.Remoting.Proxies;
-using System.Text;
 
 namespace System.Diagnostics
 {
@@ -24,6 +21,26 @@ namespace System.Diagnostics
 
         private string typeName = "";
 
+        Func<object, string> _Serialize = null;
+        public Func<object, string> Serialize
+        {
+            get
+            {
+                if (_Serialize == null)
+                {
+                    return Extensions.GlobalSerializer;
+                }
+                else
+                {
+                    return _Serialize;
+                }
+            }
+            set
+            {
+                _Serialize = value;
+            }
+        }
+
         private Dictionary<string, object> GetParams(IMethodCallMessage methodCall)
         {
             var res = new Dictionary<string, object>();
@@ -33,41 +50,13 @@ namespace System.Diagnostics
                 var key = methodCall.GetInArgName(i);
                 var val = methodCall.GetInArg(i);
 
-                var stringVal = GetSerializedObject(val);
+                var stringVal = Serialize(val);
 
                 res.Add(key, stringVal);
             }
 
             return res;
         }
-
-        private static string GetSerializedObject(object obj)
-        {
-
-            var res = string.Empty;
-
-            if (obj == null)
-            {
-                res = "NULL";
-            }
-            else
-            {
-                try
-                {
-                    //res = JsonConvert.SerializeObject(obj, Formatting.Indented); //Newtonsoft dependency
-                    res = obj.ToString();
-                }
-                catch (Exception ex)
-                {
-                    res = ex.ToString();
-                }
-            }
-
-            return res;
-
-        }
-
-        public delegate void Action();
 
         TimeSpan Elapsed(Action action)
         {
@@ -131,7 +120,7 @@ namespace System.Diagnostics
                             result = methodInfo.Invoke(_dal, methodCall.InArgs);
                         });
 
-                        inParams.Add("Result", GetSerializedObject(result));
+                        inParams.Add("Result", Serialize(result));
 
                         _dal.TraceEvent(TraceEventType.Verbose, 1601, "{1} - {0}: {2}", methodCall.MethodName, typeName, elapsed);
 
