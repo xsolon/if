@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-using xSolon.Tracing;
 
 namespace xSolon.TraceListeners
 {
-    public class InMemoryTraceListener : TransactionTraceListener
+    public class InMemoryTraceListener : TraceListener
     {
 
         protected override string[] GetSupportedAttributes()

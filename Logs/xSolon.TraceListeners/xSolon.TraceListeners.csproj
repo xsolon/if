@@ -73,9 +73,9 @@
     <None Include="tracing.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\xSolon.Tracing\xSolon.Tracing40.csproj">
-      <Project>{ad8992ee-58b7-4d42-8908-c0cc9536d90d}</Project>
-      <Name>xSolon.Tracing40</Name>
+    <ProjectReference Include="..\..\xSolon.Tracing30\xSolon.Tracing30.csproj">
+      <Project>{29a9fa1a-d343-4c2f-bc3a-e09ffe9c523a}</Project>
+      <Name>xSolon.Tracing30</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -71,10 +71,6 @@
     <Compile Include="TracedClassTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Logs\xSolon.TraceListeners\xSolon.TraceListeners.csproj">
-      <Project>{8dc608ce-5de3-4c63-a684-8301a820bdeb}</Project>
-      <Name>xSolon.TraceListeners</Name>
-    </ProjectReference>
     <ProjectReference Include="..\xSolon.Tracing\xSolon.Tracing40.csproj">
       <Project>{AD8992EE-58B7-4D42-8908-C0CC9536D90D}</Project>
       <Name>xSolon.Tracing40</Name>

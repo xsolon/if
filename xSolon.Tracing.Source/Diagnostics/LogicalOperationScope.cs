@@ -76,8 +76,8 @@
             _stopId = stopId;
             _operationId = operationId;
 
-            _startMessage = startMessage ?? LogicalOperationScope_Start;
-            _stopMessage = stopMessage ?? LogicalOperationScope_Stop;
+            _startMessage = $"{operationId}.{startMessage ?? LogicalOperationScope_Start}";
+            _stopMessage = $"{operationId}.{stopMessage ?? LogicalOperationScope_Stop}";
 
             // Start Logical Operation
             if (_operationId == null)

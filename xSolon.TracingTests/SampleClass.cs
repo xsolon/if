@@ -1,11 +1,12 @@
-﻿using xSolon.Tracing;
+﻿using System.Diagnostics;
+using xSolon.Tracing;
 
 namespace xSolon.TracingTests
 {
     class SampleClass : TracedClass
     {
 
-        public SampleClass(ExtendedTraceSource source): base(source)
+        public SampleClass(TraceSource source): base(source)
         {
 
         }

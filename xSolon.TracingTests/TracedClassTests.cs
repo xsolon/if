@@ -11,6 +11,7 @@ namespace xSolon.Tracing.Tests
     [TestClass()]
     public class TracedClassTests
     {
+
         [TestMethod()]
         public void TracedClassTest()
         {
@@ -28,7 +29,7 @@ namespace xSolon.Tracing.Tests
             sample.Method2("1", "2");
 
             var listeners = sample.Trace.Listeners;
-            var listener = listeners.OfType<TransactionTraceListener>().First();
+            //var listener = listeners.OfType<TransactionTraceListener>().First();
 
             sample.Indent();
 
@@ -37,19 +38,31 @@ namespace xSolon.Tracing.Tests
             sample.UnIndent();
 
             sample.TraceData(TraceEventType.Verbose, 101, "End");
-            var msg = listener.GetTransaction();
+            //var msg = listener.GetTransaction();
 
-            Trace.WriteLine(msg.Length);
+            //Trace.WriteLine(msg.Length);
+        }
+
+        TraceSource GetTrace()
+        {
+            var source = new TraceSource("Tests");
+
+            var listener = Trace.Listeners.OfType<TraceListener>().FirstOrDefault(i => i.Name == "SpecialTrace");
+            if (listener != null)
+                source.Listeners.Add(listener);
+
+            return source;
         }
 
         [TestMethod()]
         public void ActivityThenLogical()
         {
 
-            var source = new ExtendedTraceSource();
+            var source = GetTrace();
 
             using (var scope = new ActivityScope(source, "MultipleTracedClassTestScope"))
             {
+                source.TraceEvent(TraceEventType.Information, 3, "Log entry 1");
                 var sample1 = new SampleClass();
 
                 sample1 = Extensions.Wrap<SampleClass>(sample1);
@@ -61,6 +74,7 @@ namespace xSolon.Tracing.Tests
                 using (var lScope = new LogicalOperationScope(source, "MyLogicalScope"))
                 {
                     sample1.Method1();
+                    source.TraceEvent(TraceEventType.Information, 3, "Log entry 3");
 
 
                     using (var scope2 = new ActivityScope(source, "Sub Activity"))
@@ -72,9 +86,9 @@ namespace xSolon.Tracing.Tests
                 }
 
                 var listeners = sample2.Trace.Listeners;
-                var listener = listeners.OfType<TransactionTraceListener>().First();
+                //var listener = listeners.OfType<TransactionTraceListener>().First();
 
-                var log = listener.GetTransaction();
+                //var log = listener.GetTransaction();
             }
         }
 
@@ -82,7 +96,7 @@ namespace xSolon.Tracing.Tests
         public void LogicalThenActivity()
         {
 
-            var source = new ExtendedTraceSource();
+            var source = new TraceSource("Tests");
 
             using (var lScope = new LogicalOperationScope(source, "Process C"))
             {
@@ -128,7 +142,7 @@ namespace xSolon.Tracing.Tests
 
         void ServerCall()
         {
-            var source = new ExtendedTraceSource("ServerComponent");
+            var source = new TraceSource("ServerComponent");
 
             using (var lScope = new LogicalOperationScope(source, "Process B"))
             {
