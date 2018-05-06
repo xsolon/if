@@ -43,7 +43,7 @@ namespace System.Diagnostics
             return res;
         }
 
-        public static T Wrap<T>(this T target, Func<object,string> serialize) where T : TracedClass
+        public static T Wrap<T>(this T target, Func<object, string> serialize) where T : TracedClass
         {
             var proxy = new TracedProxy<T>(target);
             proxy.Serialize = serialize;
@@ -70,5 +70,22 @@ namespace System.Diagnostics
             }
 
         }
+
+        public static void Elapsed(this TraceSource target, Action action)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            try
+            {
+                action();
+            }
+            finally
+            {
+                stopwatch.Stop();
+            }
+            target.TraceEvent(TraceEventType.Verbose, 3497, $"Elapsed: {stopwatch.Elapsed}");
+        }
+
     }
 }

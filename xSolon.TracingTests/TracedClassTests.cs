@@ -6,6 +6,8 @@ using xSolon.Tracing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using xSolon.TracingTests;
 using System.Diagnostics;
+using System.Threading;
+
 namespace xSolon.Tracing.Tests
 {
     [TestClass()]
@@ -52,6 +54,18 @@ namespace xSolon.Tracing.Tests
                 source.Listeners.Add(listener);
 
             return source;
+        }
+
+        [TestMethod()]
+        public void Elapsed()
+        {
+
+            var source = GetTrace();
+
+            source.Elapsed(()=>
+            {
+                Thread.Sleep(1000);
+            });
         }
 
         [TestMethod()]

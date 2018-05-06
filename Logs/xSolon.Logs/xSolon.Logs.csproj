@@ -75,12 +75,6 @@
     <Compile Include="Destinations\TraceDestination.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Events\xSolon.Events\xSolon.Events.csproj">
-      <Project>{bc5d70d0-3fca-4904-b482-c26109294e9d}</Project>
-      <Name>xSolon.Events</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="C:\sc\sn\inst.snk">
       <Link>inst.snk</Link>
     </None>

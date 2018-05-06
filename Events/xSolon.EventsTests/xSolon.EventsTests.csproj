@@ -72,12 +72,6 @@
     <Compile Include="Dto\XSolonDictionaryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\xSolon.Events\xSolon.Events.csproj">
-      <Project>{BC5D70D0-3FCA-4904-B482-C26109294E9D}</Project>
-      <Name>xSolon.Events</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
